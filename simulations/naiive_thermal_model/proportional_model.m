@@ -30,7 +30,6 @@ function dT = proportional_model(t, y, T_target, temp_max, temp_min)
     % If we're in sunglight (1 or 0)
     sun = mod(t/60, ORBITAL_PERIOD/60) > 45;
 
-    % Radiation heat loss (black body)
     dq_dt = EMISSIVITY * SIGMA * AREA * (T_SPACE^4 - sc_temp^4) ... % Radiation loss
             + heat ...                                              % Active control
             + sun * SUN_LOAD * ABSORBTIVIY;                         % solar load

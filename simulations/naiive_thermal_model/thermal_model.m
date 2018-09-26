@@ -27,8 +27,7 @@ function dT = thermal_model(t, y, temp_max, temp_min)
     % If we're in sunglight
     sun = mod(t/60, ORBITAL_PERIOD/60) > 45;
 
-    % Radiation heat loss (black body)
-    dq_dt = EMISSIVITY * SIGMA * AREA * (T_SPACE^4 - sc_temp^4) ...
+    dq_dt = EMISSIVITY * SIGMA * AREA * (T_SPACE^4 - sc_temp^4) ... % radiation loss
             + heater_state * HEATER_WATTS                       ... % heat control
             + sun * SUN_LOAD * ABSORBTIVIY;                         % solar load
 
