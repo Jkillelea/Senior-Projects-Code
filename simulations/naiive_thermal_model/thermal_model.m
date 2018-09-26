@@ -1,3 +1,7 @@
+% A basic model where the heater is turned
+% on if things get too cold and turned off 
+% if things get too hot
+
 function dT = thermal_model(t, y, temp_max, temp_min)
     global heater_state;
 

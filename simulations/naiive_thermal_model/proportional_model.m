@@ -1,3 +1,7 @@
+% A proportional control law model where heater power
+% is a function of the difference between the target 
+% and current temperature.
+
 function dT = proportional_model(t, y, T_target, temp_max, temp_min)
     global heater_state;
     sc_temp = y(1);
