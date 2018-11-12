@@ -9,8 +9,21 @@ function Qdot = control(T, t, Ttgt, Kp, Kd, Ki)
     if isempty(integral_err)
         integral_err = 0;
     end
+
+    persistent time_last;
+    if isempty(time_last)
+        time_last = 0;
+    end
     % Sum error over all time
-    integral_err = integral_err + (Ttgt - T);
+    if t > time_last
+        dt = t - time_last;
+    else
+        warning('ode45 went backwards in time!');
+        dt = 0;
+    end
+    time_last = t;
+
+    integral_err = integral_err + (Ttgt - T)*dt;
 
     Qdot = Kp * (Ttgt - T) + Ki * integral_err;
     Qdot = max([Qdot, 0]); % require Qdot to greater than or equal to zero
