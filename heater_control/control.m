@@ -1,5 +1,5 @@
 % Run a PID control law here
-function Qdot = control(T, Ttgt, Kp, Kd, Ki)
+function Qdot = control(T, t, Ttgt, Kp, Kd, Ki)
     % TODO: Actually do the formal analysis and find the right gains
     % TODO: All the logic for differential control
 
