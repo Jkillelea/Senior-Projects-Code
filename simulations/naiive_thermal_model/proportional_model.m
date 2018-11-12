@@ -14,25 +14,21 @@ function dT = proportional_model(t, y, T_target, temp_max, temp_min)
     ABSORBTIVIY    = 1;         % black body assumption
     HEATER_WATTS   = 300;       % [W]
     SPECIFIC_HEAT  = 910;       % Aluminum, [J/(kg*K)]
-    SUN_LOAD       = 100;       % [W]
+    SUN_LOAD       = 500;       % [W]
     ORBITAL_PERIOD = 90*60;     % seconds
 
     Kp = 0.5;
 
     % Heater Controller
     heat = Kp * (T_target - sc_temp) * HEATER_WATTS;
-
-    % Turn heater off if sc_temp > T_target
-    if sc_temp > T_target
-        heat = 0;
-    end
+    heat = max(0, heat); % heater can't go negative, duh
 
     % If we're in sunglight (1 or 0)
     sun = mod(t/60, ORBITAL_PERIOD/60) > 45;
 
     dq_dt = EMISSIVITY * SIGMA * AREA * (T_SPACE^4 - sc_temp^4) ... % Radiation loss
             + heat ...                                              % Active control
-            + sun * SUN_LOAD * ABSORBTIVIY;                         % solar load
+            + sun * SUN_LOAD * AREA * ABSORBTIVIY;                  % solar load
 
     dT = dq_dt/(SPECIFIC_HEAT*MASS);
 end

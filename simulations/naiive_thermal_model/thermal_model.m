@@ -13,11 +13,12 @@ function dT = thermal_model(t, y, temp_max, temp_min)
     ABSORBTIVIY    = 1;         % black body assumption
     HEATER_WATTS   = 300;       % [W]
     SPECIFIC_HEAT  = 910;       % Aluminum, [J/(kg*K)]
-    SUN_LOAD       = 100;       % [W]
+    SUN_LOAD       = 500;       % [W]
     ORBITAL_PERIOD = 90*60;     % seconds
 
     sc_temp = y(1);
 
+    % Switch heater on if too cold, off if too hot
     if sc_temp < temp_min
         heater_state = 1;
     elseif sc_temp > temp_max

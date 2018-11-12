@@ -11,9 +11,9 @@ initial_state = [300]; % degrees kelvin
 
 abs_temp_max = 273 + 50; %  50 C
 abs_temp_min = 273 - 20; % -20 C
-temp_max = 273 + 30; %  30 C
-temp_min = 273 - 10; % -10 C
-time_max = 1.5*HOUR;
+temp_max = 273 + 30;     %  30 C
+temp_min = 273 - 10;     % -10 C
+time_max = 3*HOUR;
 
 [t, y] = ode45(@(t, y) thermal_model(t, y, temp_max, temp_min),        ...
                                                         [0, time_max], ...
@@ -30,7 +30,7 @@ plot([0, time_max], [abs_temp_max, abs_temp_max], 'r-');
 
 
 T_target = 300; % kelvin
-[t, y] = ode45(@(t, y) proportional_model(t, y, T_target, temp_max, temp_min),        ...
+[t, y] = ode45(@(t, y) proportional_model(t, y, T_target, temp_max, temp_min), ...
                                                         [0, time_max], ...
                                                         initial_state);
 figure; hold on; grid on;
